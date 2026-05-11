@@ -16,6 +16,11 @@ export default function Page() {
 
   const handleNewTodo = (e: FormEvent) => {
     e.preventDefault();
+    const newTodo = {
+      name: input,
+      isDone: false,
+    };
+    setTodos([...todos, newTodo]);
   };
 
   return (
@@ -29,7 +34,6 @@ export default function Page() {
           onChange={(e) => setInput(e.target.value)}
         />
       </form>
-      <p>{input}</p>
       {todos.map((todo, index) => (
         <div
           key={index}
