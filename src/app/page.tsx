@@ -18,17 +18,19 @@ export default function Page() {
     { id: 2, name: "Learn Next.js", isDone: false },
   ]);
 
-  const toggleDone = (id: number) => {
-    const element = items.find((item) => item.id === id);
-    console.log(element);
-    // setItems((prevItems)=> prevItems.map((todo)=> todo.id===id ? {...todo, todo.isDone:!todo.isDone}))
-  };
-
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
     if (input === "") return;
     setItems([...items, { id: lastId++, name: input, isDone: false }]);
     setInput("");
+  };
+
+  // Code taken from: https://dev.to/joelynn/how-to-build-a-react-crud-todo-app-delete-todo-3jl1
+  const handleDelete = (id: number) => {
+    const removedItem = items.filter((todo) => {
+      return todo.id !== id;
+    });
+    setItems(removedItem);
   };
 
   return (
@@ -44,17 +46,24 @@ export default function Page() {
       </form>
       <hr />
       <div className="flex flex-col gap-3 p-3">
-        {items.map((todo, index) => (
-          <div key={index} className="flex flex-row outline p-3 gap-3">
-            <button
-              className={`outline px-3 cursor-pointer ${todo.isDone ? "bg-green-200" : "bg-sky-200"}`}
-              onClick={() => toggleDone(todo.id)}
+        {items && items.length > 0 ? (
+          items.map((todo, index) => (
+            <div
+              key={index}
+              className="flex flex-row outline p-3 justify-between"
             >
-              {todo.isDone ? "Done" : "To Do"}
-            </button>
-            <p>{todo.name}</p>
-          </div>
-        ))}
+              <p>{todo.name}</p>
+              <button
+                className="outline px-3 cursor-pointer"
+                onClick={() => handleDelete(todo.id)}
+              >
+                Delete
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>No todos items yet...</p>
+        )}
       </div>
     </>
   );
