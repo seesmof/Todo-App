@@ -1,8 +1,12 @@
+"use client";
+
+import New from "@/components/New";
+import { SubmitEventHandler } from "react";
+
+const handleSubmit = (e: SubmitEventHandler<HTMLFormElement>) => {
+  e.preventDefault();
+};
+
 export default function Page() {
-  return (
-    <div className="flex flex-row gap-3 p-3">
-      <input className="outline flex-1 px-1" type="text" />
-      <button className="outline px-3">Add</button>
-    </div>
-  );
+  return <New handleSubmit={handleSubmit} />;
 }
