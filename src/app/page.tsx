@@ -21,7 +21,7 @@ export default function Page() {
   const toggleDone = (id: number) => {
     const element = items.find((item) => item.id === id);
     console.log(element);
-    // setItems([...items, ]);
+    // setItems((prevItems)=> prevItems.map((todo)=> todo.id===id ? {...todo, todo.isDone:!todo.isDone}))
   };
 
   const handleSubmit = (e: React.SubmitEvent) => {
