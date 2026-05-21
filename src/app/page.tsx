@@ -24,8 +24,9 @@ export default function Page() {
     // setItems([...items, ]);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
+    if (input === "") return;
     setItems([...items, { id: lastId++, name: input, isDone: false }]);
     setInput("");
   };
@@ -39,7 +40,7 @@ export default function Page() {
           className="outline flex-1 px-1"
           type="text"
         />
-        <button className="outline px-3">Add</button>
+        <button className="outline cursor-pointer px-3">Add</button>
       </form>
       <hr />
       <div className="flex flex-col gap-3 p-3">
