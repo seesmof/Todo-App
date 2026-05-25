@@ -13,9 +13,10 @@ let lastId = 3;
 export default function Page() {
   const [input, setInput] = useState<string>("");
   const [items, setItems] = useState<Todo[]>([
-    { id: 0, name: "Finish this app", isDone: false },
-    { id: 1, name: "Learn React", isDone: true },
-    { id: 2, name: "Learn Next.js", isDone: false },
+    { id: 1, name: "Finish this project.", isDone: false },
+    { id: 2, name: "Learn React.", isDone: false },
+    { id: 3, name: "Learn Angular.", isDone: false },
+    { id: 4, name: "Finish this task.", isDone: true },
   ]);
 
   const handleSubmit = (e: React.SubmitEvent) => {
@@ -39,22 +40,21 @@ export default function Page() {
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="outline flex-1 px-1"
+          className="input flex-1"
           type="text"
         />
-        <button className="outline cursor-pointer px-3">Add</button>
+        <button className="btn">Add</button>
       </form>
-      <hr />
       <div className="flex flex-col gap-3 p-3">
         {items && items.length > 0 ? (
           items.map((todo, index) => (
             <div
               key={index}
-              className="flex flex-row outline p-3 justify-between"
+              className="flex flex-row outline rounded outline-gray-300 p-3 justify-between"
             >
               <p>{todo.name}</p>
               <button
-                className="outline px-3 cursor-pointer"
+                className="btn btn-error h-fit"
                 onClick={() => handleDelete(todo.id)}
               >
                 Delete
