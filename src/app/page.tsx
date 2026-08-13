@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import React, { useState } from "react";
 
 export interface Todo {
@@ -37,28 +39,29 @@ export default function Page() {
   return (
     <>
       <form className="flex flex-row gap-3 p-3" onSubmit={handleSubmit}>
-        <input
+        <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="input flex-1"
+          className="flex-1"
           type="text"
+          placeholder="Your task here..."
         />
-        <button className="btn">Add</button>
+        <Button type="submit">Add</Button>
       </form>
       <div className="flex flex-col gap-3 p-3">
         {items && items.length > 0 ? (
           items.map((todo, index) => (
             <div
               key={index}
-              className="flex flex-row outline rounded outline-gray-300 p-3 justify-between"
+              className="flex flex-row outline rounded outline-gray-300 p-3 justify-between items-center"
             >
               <p>{todo.name}</p>
-              <button
-                className="btn btn-error h-fit"
+              <Button
+                variant={"destructive"}
                 onClick={() => handleDelete(todo.id)}
               >
                 Delete
-              </button>
+              </Button>
             </div>
           ))
         ) : (
