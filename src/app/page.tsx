@@ -2,38 +2,24 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Todo, todoStore } from "@/store/todoStore";
 import React, { useState } from "react";
 
-export interface Todo {
-  id: number;
-  name: string;
-  isDone: boolean;
-}
-
-let lastId = 3;
-
 export default function Page() {
+  const { todos, add, remove } = todoStore();
   const [input, setInput] = useState<string>("");
-  const [items, setItems] = useState<Todo[]>([
-    { id: 1, name: "Finish this project.", isDone: false },
-    { id: 2, name: "Learn React.", isDone: false },
-    { id: 3, name: "Learn Angular.", isDone: false },
-    { id: 4, name: "Finish this task.", isDone: true },
-  ]);
 
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
     if (input === "") return;
-    setItems([...items, { id: lastId++, name: input, isDone: false }]);
-    setInput("");
-  };
 
-  // Code taken from: https://dev.to/joelynn/how-to-build-a-react-crud-todo-app-delete-todo-3jl1
-  const handleDelete = (id: number) => {
-    const removedItem = items.filter((todo) => {
-      return todo.id !== id;
-    });
-    setItems(removedItem);
+    const newTodo: Todo = {
+      id: crypto.randomUUID(),
+      content: input,
+    };
+    add(newTodo);
+
+    setInput("");
   };
 
   return (
@@ -49,17 +35,14 @@ export default function Page() {
         <Button type="submit">Add</Button>
       </form>
       <div className="flex flex-col gap-3 p-3">
-        {items && items.length > 0 ? (
-          items.map((todo, index) => (
+        {todos && todos.length > 0 ? (
+          todos.map((todo, index) => (
             <div
               key={index}
               className="flex flex-row outline rounded outline-gray-300 p-3 justify-between items-center"
             >
-              <p>{todo.name}</p>
-              <Button
-                variant={"destructive"}
-                onClick={() => handleDelete(todo.id)}
-              >
+              <p>{todo.content}</p>
+              <Button variant={"destructive"} onClick={() => remove(todo.id)}>
                 Delete
               </Button>
             </div>
