@@ -12,7 +12,7 @@ type TodoStoreProps = {
 };
 
 export const todoStore = create<TodoStoreProps>((set) => ({
-  todos: [],
+  todos: [{ id: "1", content: "Finish this app." }],
   add: (todo) => set((state) => ({ todos: [...state.todos, todo] })),
   remove: (id) =>
     set((state) => ({ todos: state.todos.filter((todo) => todo.id !== id) })),
