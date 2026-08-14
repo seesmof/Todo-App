@@ -2,15 +2,6 @@
 
 import { EditTodoDialog } from "@/components/EditTodoDialog";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Todo, todoStore } from "@/store/todoStore";
 import React, { useState } from "react";
@@ -18,23 +9,17 @@ import React, { useState } from "react";
 export default function Page() {
   const { todos, add, remove, update } = todoStore();
   const [input, setInput] = useState<string>("");
-  const [todoContent, setTodoContent] = useState<string>("");
 
-  const handleNewTodo = (e: React.SubmitEvent) => {
+  const handleNewTodo = (e: React.FormEvent) => {
     e.preventDefault();
-    if (input === "") return;
+    if (!input.trim()) return;
 
     const newTodo: Todo = {
       id: crypto.randomUUID(),
-      content: input,
+      content: input.trim(),
     };
     add(newTodo);
-
     setInput("");
-  };
-
-  const handleUpdateTodo = (e: React.SubmitEvent) => {
-    e.preventDefault();
   };
 
   return (
@@ -50,10 +35,10 @@ export default function Page() {
         <Button type="submit">Add</Button>
       </form>
       <div className="flex flex-col gap-3 p-3">
-        {todos && todos.length > 0 ? (
-          todos.map((todo, index) => (
+        {todos.length > 0 ? (
+          todos.map((todo) => (
             <div
-              key={index}
+              key={todo.id}
               className="flex flex-row outline rounded outline-gray-300 p-3 justify-between items-center"
             >
               <div className="flex gap-3 items-center">
