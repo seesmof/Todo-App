@@ -17,8 +17,9 @@ import React, { useState } from "react";
 export default function Page() {
   const { todos, add, remove, update } = todoStore();
   const [input, setInput] = useState<string>("");
+  const [todoContent, setTodoContent] = useState<string>("");
 
-  const handleSubmit = (e: React.SubmitEvent) => {
+  const handleNewTodo = (e: React.SubmitEvent) => {
     e.preventDefault();
     if (input === "") return;
 
@@ -31,9 +32,13 @@ export default function Page() {
     setInput("");
   };
 
+  const handleUpdateTodo = (e: React.SubmitEvent) => {
+    e.preventDefault();
+  };
+
   return (
     <>
-      <form className="flex flex-row gap-3 p-3" onSubmit={handleSubmit}>
+      <form className="flex flex-row gap-3 p-3" onSubmit={handleNewTodo}>
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -56,16 +61,21 @@ export default function Page() {
                     render={<Button variant={"outline"}>Edit</Button>}
                   />
                   <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Edit your todo here.</DialogTitle>
-                    </DialogHeader>
-                    <Field>
-                      <FieldLabel htmlFor="content">Todo content</FieldLabel>
-                      <Input id="content" placeholder="Todo content here..." />
-                    </Field>
-                    <DialogFooter>
-                      <Button type="submit">Save</Button>
-                    </DialogFooter>
+                    <form
+                      onSubmit={handleUpdateTodo}
+                      className="flex gap-3 items-end"
+                    >
+                      <Field>
+                        <FieldLabel htmlFor="content">Todo content</FieldLabel>
+                        <Input
+                          id="content"
+                          placeholder="Todo content here..."
+                          value={todoContent || todo.content}
+                          onChange={(e) => setTodoContent(e.target.value)}
+                        />
+                      </Field>
+                      <Button type="submit">Okay</Button>
+                    </form>
                   </DialogContent>
                 </Dialog>
                 <p>{todo.content}</p>
