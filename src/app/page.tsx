@@ -1,5 +1,6 @@
 "use client";
 
+import { EditTodoDialog } from "@/components/EditTodoDialog";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -56,28 +57,7 @@ export default function Page() {
               className="flex flex-row outline rounded outline-gray-300 p-3 justify-between items-center"
             >
               <div className="flex gap-3 items-center">
-                <Dialog>
-                  <DialogTrigger
-                    render={<Button variant={"outline"}>Edit</Button>}
-                  />
-                  <DialogContent>
-                    <form
-                      onSubmit={handleUpdateTodo}
-                      className="flex gap-3 items-end"
-                    >
-                      <Field>
-                        <FieldLabel htmlFor="content">Todo content</FieldLabel>
-                        <Input
-                          id="content"
-                          placeholder="Todo content here..."
-                          value={todoContent || todo.content}
-                          onChange={(e) => setTodoContent(e.target.value)}
-                        />
-                      </Field>
-                      <Button type="submit">Okay</Button>
-                    </form>
-                  </DialogContent>
-                </Dialog>
+                <EditTodoDialog todo={todo} update={update} />
                 <p>{todo.content}</p>
               </div>
               <Button variant={"destructive"} onClick={() => remove(todo.id)}>
