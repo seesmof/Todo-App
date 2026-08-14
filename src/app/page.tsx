@@ -3,20 +3,19 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
+import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Todo, todoStore } from "@/store/todoStore";
 import React, { useState } from "react";
 
 export default function Page() {
-  const { todos, add, remove } = todoStore();
+  const { todos, add, remove, update } = todoStore();
   const [input, setInput] = useState<string>("");
 
   const handleSubmit = (e: React.SubmitEvent) => {
